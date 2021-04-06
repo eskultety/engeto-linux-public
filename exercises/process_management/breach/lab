@@ -1,0 +1,191 @@
+#!/bin/bash
+
+BASENAME=$(basename $0)
+TEMPFILE="$(mktemp -p /tmp ${BASENAME}XXX)"
+G1="\e[1;32m"
+G2="\e[0m"
+R1="\e[1;91m"
+R2="\e[0m"
+
+showHelp()
+{
+    echo "usage: lab [-h|--help] setup|intro|grade|clean"
+}
+
+
+checkEUID()
+{
+    if [[ $(id -ru) -ne 0 ]]; then
+        echo "$BASENAME: $1 must be run as root"
+        exit 1
+    fi
+}
+
+
+setup()
+{
+    for package in epel-release ansible; do
+        rpm -qa | grep $package &>/dev/null
+        if [[ $? -ne 0 ]]; then
+            yum install -y $package
+            echo $package >> $TEMPFILE
+        fi
+    done
+
+    cd data/ansible
+    ansible-playbook setup.yml
+    touch bootstrapped
+}
+
+
+ok()
+{
+    echo -e "${G1}PASS${G2}"
+}
+
+
+fail()
+{
+    if [[ -z ${1+x} ]]; then
+        RET=1
+    fi
+    echo -e "${R1}FAIL${R2} $1"
+}
+
+
+grade() {
+    RET=0
+
+    if [[ ! -e ./data/ansible/bootstrapped ]]; then
+        echo "$BASENAME: 'setup' must be run first"
+        exit 1
+    fi
+
+##############
+    echo -n "Check that test user wasn't removed..."
+
+    if [[ $(getent passwd test) ]] && [[ -d /home/test ]]; then
+        ok
+    else
+        fail
+    fi
+    sleep 0.5
+
+##############
+    echo -n "Check that the malicious process is gone..."
+
+    if ! (pgrep stress &>/dev/null); then
+        ok
+    else
+        fail
+    fi
+    sleep 0.5
+
+##############
+    echo -n "Check that the malicious code cannot be scheduled..."
+
+    if ! (crontab -l -u test &>/dev/null); then
+        ok
+    else
+        fail
+    fi
+    sleep 0.5
+
+##############
+    echo -n "Check for account preventive measures..."
+
+    if [[ x"$(getent shadow test | cut -d : -f 8)" == "x0" ]]; then
+        ok
+    else
+        fail
+    fi
+    sleep 0.5
+
+##############
+    echo -n "Check that the source of malicious code was discovered..."
+
+    if [[ $(cat /home/test/answer) =~ bashrc ]]; then
+        ok
+    else
+        fail "(OPTIONAL)"
+    fi
+    sleep 0.5
+
+    return $RET
+}
+
+
+cleanup()
+{
+    cd data/ansible
+    ansible-playbook cleanup.yml
+
+    while read line; do
+        yum remove -y $line
+    done < $TEMPFILE
+
+    rm -f $TEMPFILE bootstrapped /tmp/lab?*
+    exit 0
+}
+
+OPTS=$(getopt -o hpw --long help,profile: -- "$@")
+[ $? -eq 0 ] || {
+    showHelp
+    exit 1
+}
+
+
+eval set -- "$OPTS"
+while true; do
+    case "$1" in
+    -h|--help)
+        showHelp
+        exit 0
+        ;;
+
+    *)
+        break
+        ;;
+    esac
+done
+
+shift
+case "$1" in
+    intro)
+        cd data
+        ./intro.sh
+        ;;
+
+    setup)
+        checkEUID "$1"
+
+        setup
+        su - test -c "source /home/test/.bashrc"
+        ;;
+
+    grade)
+        checkEUID "$1"
+
+        grade
+        rc=$?
+        echo "==================="
+        echo -n "OVERAL RESULT: "
+        if [[ $rc -eq 0 ]]; then
+            echo -e "${G1}PASS${G2}"
+        else
+            echo -e "${R1}FAIL${R2}"
+        fi
+        ;;
+
+    cleanup)
+        checkEUID "$1"
+
+        find / -path /proc -prune -o -user test -type f -exec rm -f {} + &>/dev/null
+        pkill -9 -U test &>/dev/null
+        cleanup
+        ;;
+    *)
+        echo "$BASENAME: unknown command '$1'"
+        showHelp
+        ;;
+esac
