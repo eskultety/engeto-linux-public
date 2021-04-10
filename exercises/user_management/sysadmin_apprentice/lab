@@ -151,12 +151,13 @@ grade() {
     sleep 0.5
 
 ##############
-    id lando &>/dev/null
-    if [[ $? -eq 0 ]]; then
+    getent passwd lando &>/dev/null
+    lando_exists=$?
+
+    if [[ $lando_exists ]]; then
         echo -n "Check that lando is not part of smugglers..."
 
-        id lando | grep smugglers &>/dev/null
-        if [[ $? -eq 1 ]]; then
+        if (groups lando | grep smugglers &>/dev/null); then
             ok
         else
             fail
@@ -165,16 +166,10 @@ grade() {
     fi
 
 ##############
-    id lando &>/dev/null
-    if [[ $? -eq 0 ]]; then
+    if [[ $lando_exists ]]; then
         echo -n "Check that Lando cannot access smugglers' data with password..."
 
-        usermod -aG smugglers lando &>/dev/null
-        sudo -u lando cat /smugglers/ledger/job1 &>/dev/null
-        rc=$?
-        usermod -G lando lando &>/dev/null
-
-        if [[ $rc -ne 0 ]]; then
+        if (getfacl -p /smugglers | grep "^user:lando:---" &>/dev/null); then
             ok
         else
             fail
