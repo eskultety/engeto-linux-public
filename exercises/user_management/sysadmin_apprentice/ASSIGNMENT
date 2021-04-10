@@ -1,0 +1,65 @@
+Tasks
+-----
+1. Create the 'sidius' account
+
+2. Add Lord Sidius to the group 'sith'
+
+3. Switch to Lord Sidius (from this moment you must not use the 'root' account!)
+
+4. Check that Darth Plagueis aka 'plaggy' account exists
+
+5. There is a suspicious file somewhere in the system owned by the group 'sith'
+   which will help you to destroy your master
+
+6. With the information in the file:
+    6a. Get passwordless sudo
+    6b. Remove Darth Plagueis from the system along with his home directory
+
+7. Find all files owned by the former user 'plaggy'
+
+8. Take the files and shuffle their contents so that you formulate the
+   philosophy of Sith and save it under '/var/tmp/sith_rule.txt'
+
+9. You're the almighty Darth Sidius, and no feeble user shall have access to
+   root - prevent all regular users to switch to root (DO NOT REMOVE ANYTHING!)
+
+10. All privileged operations from this moment on will have to be performed
+   from the sidius account - that's because you control the universe ;)
+   When you need to switch to a different account, use sudo!
+
+11. Create users Han Solo (codename han {UID:5010}) and Chewbacca
+   (codename chewie)
+
+12. Han and Chewie are part of the 'smugglers' group
+
+13. Switch to Han Solo's user
+
+14. Smugglers have a directory somewhere in the system where they can share
+    intel, find it!
+
+15. Han is inclusive and wants all intel to be owned by the 'smugglers' group,
+    make sure the group ownership is forced to all newly created files in
+    that directory
+
+16. Han prepared last details of their stint and saved the following time stamp
+    to 'ledger/job1.txt' under the discovered smugglers' home directory
+
+    ``18:18 Christmas Eve 2020 in seconds since the Big Bang aka Epoch``
+
+17. Create user Lando (codename lando)
+
+18. Lando is not a smuggler!
+
+19. Switch to Lando's user
+
+20. Lando knows there is a way to read everything smugglers share, because
+    there is a file somewhere in the system that will help him to add himself
+    to the smugglers group. Look into the place where "everyone can do anything!"
+
+21. Check that you can read the contents of 'ledger/job1.txt' in the directory
+    owned by smugglers
+
+22. Switch to Han Solo's user
+
+23. Deny Lando any access to smugglers' data forever despite Lando having "the
+    key" to the smugglers group
