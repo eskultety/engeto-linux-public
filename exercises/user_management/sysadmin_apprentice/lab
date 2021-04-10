@@ -68,7 +68,7 @@ grade() {
         else
             fail
         fi
-        sleep 0.5
+        sleep 0.2
     done
 
 ##############
@@ -79,7 +79,7 @@ grade() {
     else
         fail
     fi
-    sleep 0.5
+    sleep 0.2
 
 ##############
     echo -n "Check if sidius can sudo without password..."
@@ -89,7 +89,7 @@ grade() {
     else
         fail
     fi
-    sleep 0.5
+    sleep 0.2
 
 ##############
     echo -n "Check that su is unavailable..."
@@ -99,7 +99,7 @@ grade() {
     else
         fail
     fi
-    sleep 0.5
+    sleep 0.2
 
 ##############
     echo -n "Check if sith_rule.txt exists..."
@@ -120,7 +120,7 @@ grade() {
             fail
         fi
     fi
-    sleep 0.5
+    sleep 0.2
 
 ##############
     echo -n "Check if smugglers is the owning group of the shared data..."
@@ -130,7 +130,7 @@ grade() {
     else
         fail
     fi
-    sleep 0.5
+    sleep 0.2
 
 ##############
     echo -n "Check if job1.txt exists in the ledger..."
@@ -148,7 +148,7 @@ grade() {
     else
         fail
     fi
-    sleep 0.5
+    sleep 0.2
 
 ##############
     getent passwd lando &>/dev/null
@@ -162,7 +162,7 @@ grade() {
         else
             fail
         fi
-        sleep 0.5
+        sleep 0.2
     fi
 
 ##############
@@ -175,7 +175,7 @@ grade() {
             fail
         fi
 
-        sleep 0.5
+        sleep 0.2
     fi
     return $RET
 }
