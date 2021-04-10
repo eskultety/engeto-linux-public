@@ -84,8 +84,7 @@ grade() {
 ##############
     echo -n "Check if sidius can sudo without password..."
 
-    if [[ $(grep sidius /etc/sudoers) ]] ||
-       [[ $(grep -R sidius /etc/sudoers.d/) ]]; then
+    if (sudo -U sidius -l | grep -E "NOPASSWD:[[:space:]]*ALL" &>/dev/null); then
         ok
     else
         fail
