@@ -154,7 +154,7 @@ grade() {
     getent passwd lando &>/dev/null
     lando_exists=$?
 
-    if [[ $lando_exists ]]; then
+    if [[ $lando_exists -eq 0 ]]; then
         echo -n "Check that lando is not part of smugglers..."
 
         if (groups lando | grep smugglers) &>/dev/null; then
@@ -166,7 +166,7 @@ grade() {
     fi
 
 ##############
-    if [[ $lando_exists ]]; then
+    if [[ $lando_exists -eq 0 ]]; then
         echo -n "Check that Lando cannot access smugglers' data with password..."
 
         if (getfacl -p /smugglers | grep "^user:lando:---") &>/dev/null; then
