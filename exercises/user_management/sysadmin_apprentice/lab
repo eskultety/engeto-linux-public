@@ -1,7 +1,7 @@
 #!/bin/bash
 
 BASENAME=$(basename $0)
-TEMPFILE="$(mktemp -p /tmp ${BASENAME}XXX)"
+TEMPFILE="$(mktemp -u ${BASENAME}XXX)"
 G1="\e[1;32m"
 G2="\e[0m"
 R1="\e[1;91m"
@@ -28,7 +28,7 @@ setup()
         rpm -qa | grep $package &>/dev/null
         if [[ $? -ne 0 ]]; then
             yum install -y $package
-            echo $package >> $TEMPFILE
+            echo $package >> /tmp/$TEMPFILE
         fi
     done
 
@@ -192,13 +192,13 @@ cleanup()
     cd data/ansible
     ansible-playbook cleanup.yml
 
-    if [[ -e $TEMPFILE ]]; then
+    if [[ -e /tmp/$TEMPFILE ]]; then
         while read line; do
             yum remove -y $line
-        done < $TEMPFILE
+        done < /tmp/$TEMPFILE
     fi
 
-    rm -f $TEMPFILE bootstrapped /tmp/lab?*
+    rm -f /tmp/$TEMPFILE bootstrapped
     exit 0
 }
 
