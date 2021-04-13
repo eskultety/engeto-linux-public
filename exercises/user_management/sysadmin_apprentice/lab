@@ -158,9 +158,9 @@ grade() {
         echo -n "Check that lando is not part of smugglers..."
 
         if (groups lando | grep smugglers) &>/dev/null; then
-            ok
-        else
             fail
+        else
+            ok
         fi
         sleep 0.2
     fi
