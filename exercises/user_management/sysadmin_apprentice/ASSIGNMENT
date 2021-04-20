@@ -20,8 +20,10 @@ Tasks
 8. Take the files and shuffle their contents so that you formulate the
    philosophy of Sith and save it under '/var/tmp/sith_rule.txt'
 
-9. You're the almighty Darth Sidius, and no feeble user shall have access to
-   root - prevent all regular users to switch to root (DO NOT REMOVE ANYTHING!)
+9. You're the almighty Darth Sidius, and no feeble user shall challenge your
+   authority - prevent all regular users from being able to switch to the root
+   user or to any other user who might have root access
+   (PLEASE DO NOT REMOVE ANYTHING!)
 
 10. All privileged operations from this moment on will have to be performed
    from the sidius account - that's because you control the universe ;)
