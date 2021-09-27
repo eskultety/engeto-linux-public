@@ -44,24 +44,33 @@ Tasks
     that directory
 
 16. Han prepared last details of their stint and saved the following time stamp
-    to 'ledger/job1.txt' under the discovered smugglers' home directory
+    to 'ledger/job.txt' under the discovered smugglers' home directory:
 
     ``18:18 Christmas Eve 2020 in seconds since the Big Bang aka Epoch``
 
-17. Create user Lando (codename lando)
+    Han doesn't trust people easily and so he also created a backup of the file
+    in his home directory.
 
-18. Lando is not a smuggler!
+17. Switch back to Sidius
 
-19. Switch to Lando's user
+18. Create user Lando (codename lando)
 
-20. Lando knows there is a way to read everything smugglers share, because
+19. Lando is not a smuggler!
+
+20. Switch to Lando's user
+
+21. Lando knows there is a way to read everything smugglers share, because
     there is a file somewhere in the system that will help him to add himself
     to the smugglers group. Look into the place where "everyone can do anything!"
 
-21. Check that you can read the contents of 'ledger/job1.txt' in the directory
+22. Check that you can read the contents of 'ledger/job.txt' in the directory
     owned by smugglers
 
-22. Switch to Han Solo's user
+23. Change the time stamp of the smugglers' job so that you move it by 1 hour
+    into the future.
 
-23. Deny Lando any access to smugglers' data forever despite Lando having "the
-    key" to the smugglers group
+24. Switch to Han Solo's user
+
+25. Han found out about Lando's actions. Therefore, he needs to deny Lando any
+    access to smugglers' data forever despite Lando having "the key" to the
+    smugglers group
