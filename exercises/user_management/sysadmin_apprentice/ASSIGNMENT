@@ -17,16 +17,16 @@ Tasks
 
 7. Find all files owned by the former user 'plaggy'
 
-8. Take the files and shuffle their contents so that you formulate the
-   philosophy of Sith and save it under '/var/tmp/sith_rule.txt'
+8. Take the files and re-arrange their contents in order to formulate the
+   Sith philosophy and save it under '/var/tmp/sith_rule.txt'
 
 9. You're the almighty Darth Sidius, and no feeble user shall challenge your
-   authority - prevent all regular users from being able to switch to the root
-   user or to any other user who might have root access
+   authority - prevent all regular users from being able to switch to a
+   different (any) user.
    (PLEASE DO NOT REMOVE ANYTHING!)
 
 10. All privileged operations from this moment on will have to be performed
-   from the sidius account - that's because you control the universe ;)
+   from the sidius account - that's because you control the galaxy ;)
    When you need to switch to a different account, use sudo!
 
 11. Create users Han Solo (codename han {UID:5010}) and Chewbacca
