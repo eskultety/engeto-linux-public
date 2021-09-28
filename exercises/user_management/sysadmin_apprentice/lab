@@ -1,11 +1,10 @@
 #!/bin/bash
 
+. data/tests/util.sh
+
+
 BASENAME=$(basename $0)
 TEMPFILE="$(mktemp -u ${BASENAME}XXX)"
-G1="\e[1;32m"
-G2="\e[0m"
-R1="\e[1;91m"
-R2="\e[0m"
 
 showHelp()
 {
@@ -38,168 +37,17 @@ setup()
 }
 
 
-ok()
-{
-    echo -e "${G1}PASS${G2}"
-}
-
-
-fail()
-{
-    echo -e "${R1}FAIL${R2}"
-    RET=1
-}
-
-
 grade() {
-    RET=0
-
     if [[ ! -e ./data/ansible/bootstrapped ]]; then
         echo "$BASENAME: 'setup' must be run first"
         exit 1
     fi
 
-##############
-    for name in sidius han chewie lando; do
-        echo -n "Check if user $name exists..."
-
-        if [[ $(getent passwd $name) ]]; then
-            ok
-        else
-            fail
-        fi
-        sleep 0.2
+    RES=0
+    for test_ in data/tests/[0-9]*; do
+        "$test_" || RES=1
     done
-
-##############
-    echo -n "Check if user plaggy was removed..."
-
-    if [[ ! $(getent passwd plaggy) ]] && [[ ! -d /home/plaggy ]]; then
-        ok
-    else
-        fail
-    fi
-    sleep 0.2
-
-##############
-    echo -n "Check if sidius can sudo without password..."
-
-    if (sudo -U sidius -l | grep -E "NOPASSWD:[[:space:]]*ALL") &>/dev/null; then
-        ok
-    else
-        fail
-    fi
-    sleep 0.2
-
-##############
-    echo -n "Check that su is unavailable..."
-
-    if [[ $(stat -c "%A" /bin/su) =~ [^x]$ ]]; then
-        ok
-    else
-        fail
-    fi
-    sleep 0.2
-
-##############
-    echo -n "Check if sith_rule.txt exists..."
-
-    if [[ ! -e /var/tmp/sith_rule.txt ]]; then
-        fail
-    else
-        ok
-
-        echo -n "Check if sith_rule.txt has the right content..."
-        rule="two@there@should@be@no@more@no@less"
-        content=$(cat /var/tmp/sith_rule.txt | \
-                  tr "\n " "@" | tr -s "@" | \
-                  sed 's/@$//g')
-        if (diff <(echo -e $rule) <(echo $content)) &>/dev/null; then
-            ok
-        else
-            fail
-        fi
-    fi
-    sleep 0.2
-
-##############
-    echo -n "Check if smugglers is the owning group of the shared data..."
-
-    if [[ $(stat -c "%A" /smugglers 2>/dev/null) =~ ^d[rwx]{5}s ]]; then
-        ok
-    else
-        fail
-    fi
-    sleep 0.2
-
-##############
-    echo -n "Check if job.txt exists in the ledger..."
-
-    if [[ -e /smugglers/ledger/job.txt ]]; then
-        ok
-
-        echo -n "Check if Han backed up the job..."
-        if [[ -e /home/han/job.txt ]]; then
-            ok
-
-            echo -n "Check if the job is happening on Christmas Eve..."
-            seconds="$(date -d '12/24/2020 18:18' +%s)"
-            if [[ -z $(diff <(echo -e $seconds) /home/han/job.txt) ]]; then
-                ok
-            else
-                fail
-            fi
-        else
-            fail
-        fi
-    else
-        fail
-    fi
-    sleep 0.2
-
-##############
-    getent passwd lando &>/dev/null
-    lando_exists=$?
-
-    if [[ $lando_exists -eq 0 ]]; then
-        echo -n "Check that lando is not part of smugglers..."
-
-        if (groups lando | grep smugglers) &>/dev/null; then
-            fail
-        else
-            ok
-        fi
-        sleep 0.2
-    fi
-
-##############
-    if [[ $lando_exists -eq 0 ]] && [[ -e /smugglers/ledger/job.txt ]]; then
-        echo -n "Check that Lando changed the timestamp of the smugglers' job..."
-
-        seconds="$(date -d '12/24/2020 18:18 + 1 hour' +%s)"
-        if [[ -z $(diff <(echo -e $seconds) /smugglers/ledger/job.txt) ]]; then
-            ok
-        else
-            fail
-        fi
-    else
-        fail
-    fi
-
-
-##############
-    if [[ $lando_exists -eq 0 ]]; then
-        echo -n "Check that Lando cannot access smugglers' data with password..."
-
-        if (getfacl -p /smugglers | grep "^user:lando:---") &>/dev/null; then
-            ok
-        else
-            fail
-        fi
-
-        sleep 0.2
-    fi
-    return $RET
+    return $RES
 }
 
 
@@ -256,10 +104,12 @@ case "$1" in
         checkEUID "$1"
 
         grade
-        rc=$?
+        RES=$?
+
         echo "==================="
         echo -n "OVERAL RESULT: "
-        if [[ $rc -eq 0 ]]; then
+
+        if [[ $RES -eq 0 ]]; then
             echo -e "${G1}PASS${G2}"
         else
             echo -e "${R1}FAIL${R2}"

@@ -1,10 +1,10 @@
 Tasks
 -----
-1. Create the 'sidius' account
+1. Create the 'sidious' account
 
-2. Add Lord Sidius to the group 'sith'
+2. Add Lord Sidious to the group 'sith'
 
-3. Switch to Lord Sidius (from this moment you must not use the 'root' account!)
+3. Switch to Lord Sidious (from this moment you must not use the 'root' account!)
 
 4. Check that Darth Plagueis aka 'plaggy' account exists
 
@@ -20,13 +20,13 @@ Tasks
 8. Take the files and re-arrange their contents in order to formulate the
    Sith philosophy and save it under '/var/tmp/sith_rule.txt'
 
-9. You're the almighty Darth Sidius, and no feeble user shall challenge your
+9. You're the almighty Darth Sidious, and no feeble user shall challenge your
    authority - prevent all regular users from being able to switch to a
    different (any) user.
    (PLEASE DO NOT REMOVE ANYTHING!)
 
 10. All privileged operations from this moment on will have to be performed
-   from the sidius account - that's because you control the galaxy ;)
+   from the sidious account - that's because you control the galaxy ;)
    When you need to switch to a different account, use sudo!
 
 11. Create users Han Solo (codename han {UID:5010}) and Chewbacca
@@ -51,7 +51,7 @@ Tasks
     Han doesn't trust people easily and so he also created a backup of the file
     in his home directory.
 
-17. Switch back to Sidius
+17. Switch back to Sidious
 
 18. Create user Lando (codename lando)
 
