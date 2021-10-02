@@ -10,7 +10,7 @@
         - han
         - chewie
         - lando
-        - sidius
+        - sidious
 
     - name: Remove secrets
       file:
@@ -41,13 +41,21 @@
         name: /smugglers
         state: absent
 
-    - name: Remove sudoers
-      file:
-        name: "{{ item }}"
-        state: absent
-      loop:
-        - /etc/sudoers.d/plaggy
-        - /etc/sudoers.d/sidius
+    - name: Remove sudoers entries
+      block:
+        - name: Remove sudoers.d entries
+          file:
+            name: "{{ item }}"
+            state: absent
+          loop:
+            - /etc/sudoers.d/plaggy
+            - /etc/sudoers.d/sidious
+
+        - name: Remove sudoers entries
+          lineinfile:
+            path: /etc/sudoers
+            state: absent
+            regexp: '^sidious'
 
     - name: Restore 'su' binary
       copy:

@@ -64,7 +64,7 @@
     - name: Create smugglers home
       file:
         name: /smugglers
-        owner: '5010'
+        owner: nobody
         group: smugglers
         mode: '0770'
         state: directory
