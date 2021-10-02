@@ -4,7 +4,7 @@ Tasks
 
 2. Add Lord Sidious to the group 'sith'
 
-3. Switch to Lord Sidious (from this moment you must not use the 'root' account!)
+3. Switch to Lord Sidious (from this moment on you must not use the 'root' account!)
 
 4. Check that Darth Plagueis aka 'plaggy' account exists
 
@@ -34,16 +34,18 @@ Tasks
 
 12. Han and Chewie are part of the 'smugglers' group
 
-13. Switch to Han Solo's user
-
-14. Smugglers have a directory somewhere in the system where they can share
+13. Smugglers have a directory somewhere in the system where they can share
     intel, find it!
 
-15. Han is inclusive and wants all intel to be owned by the 'smugglers' group,
+14. Make Han owner of the directory
+
+15. Switch to Han Solo's user
+
+16. Han is inclusive and wants all intel to be owned by the 'smugglers' group,
     make sure the group ownership is forced to all newly created files in
     that directory
 
-16. Han prepared last details of their stint and saved the following time stamp
+17. Han prepared last details of their stint and saved the following time stamp
     to 'ledger/job.txt' under the discovered smugglers' home directory:
 
     ``18:18 Christmas Eve 2020 in seconds since the Big Bang aka Epoch``
@@ -51,26 +53,26 @@ Tasks
     Han doesn't trust people easily and so he also created a backup of the file
     in his home directory.
 
-17. Switch back to Sidious
+18. Switch back to Sidious
 
-18. Create user Lando (codename lando)
+19. Create user Lando (codename lando)
 
-19. Lando is not a smuggler!
+20. Lando is not a smuggler!
 
-20. Switch to Lando's user
+21. Switch to Lando's user
 
-21. Lando knows there is a way to read everything smugglers share, because
+22. Lando knows there is a way to read everything smugglers share, because
     there is a file somewhere in the system that will help him to add himself
     to the smugglers group. Look into the place where "everyone can do anything!"
 
-22. Check that you can read the contents of 'ledger/job.txt' in the directory
+23. Check that you can read the contents of 'ledger/job.txt' in the directory
     owned by smugglers
 
-23. Change the time stamp of the smugglers' job so that you move it by 1 hour
+24. Change the time stamp of the smugglers' job so that you move it by 1 hour
     into the future.
 
-24. Switch to Han Solo's user
+25. Switch to Han Solo's user
 
-25. Han found out about Lando's actions. Therefore, he needs to deny Lando any
+26. Han found out about Lando's actions. Therefore, he needs to deny Lando any
     access to smugglers' data forever despite Lando having "the key" to the
     smugglers group
